@@ -15,11 +15,14 @@ Usage:
 """
 
 import argparse
+import base64
 import datetime
 import json
 import os
 import re
+import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -218,7 +221,6 @@ def render_text(label, sections):
 # Send (Resend) + delivery verification
 # --------------------------------------------------------------------------- #
 def _resend_request(method, path, key, body=None):
-    import subprocess, tempfile, os
     url = "https://api.resend.com" + path
     cmd = ["curl", "-s", "-w", "\n__STATUS__:%{http_code}",
            "-X", method, url,
@@ -253,10 +255,43 @@ def _resend_request(method, path, key, body=None):
         return 0, {"error": str(e)}
 
 
-def send_email(key, subject, html, text):
-    status, resp = _resend_request("POST", "/emails", key, {
+CHROMIUM = "/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+
+
+def render_pdf(html_path):
+    """Render an HTML file to PDF using Chromium headless. Returns PDF bytes."""
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
+        pdf_path = f.name
+    try:
+        subprocess.run([
+            CHROMIUM,
+            "--headless=new", "--no-sandbox", "--disable-gpu",
+            "--print-to-pdf-no-header",
+            f"--print-to-pdf={pdf_path}",
+            f"file://{html_path}",
+        ], check=True, capture_output=True, timeout=60)
+        with open(pdf_path, "rb") as f:
+            return f.read()
+    finally:
+        try:
+            os.unlink(pdf_path)
+        except OSError:
+            pass
+
+
+def send_email(key, subject, html, text, pdf_bytes=None):
+    payload = {
         "from": MAIL_FROM, "to": [MAIL_TO],
-        "subject": subject, "html": html, "text": text})
+        "subject": subject, "html": html, "text": text,
+    }
+    if pdf_bytes:
+        payload["attachments"] = [{
+            "content": base64.b64encode(pdf_bytes).decode(),
+            "type": "application/pdf",
+            "filename": "piedmont-pool-schedule.pdf",
+            "disposition": "attachment",
+        }]
+    status, resp = _resend_request("POST", "/emails", key, payload)
     if status not in (200, 201):
         raise RuntimeError(f"send failed: HTTP {status} {resp.get('error', resp)}")
     email_id = resp.get("id")
@@ -359,9 +394,26 @@ def main():
         save_state(state)
         print(f"state updated: schedule_end -> {end.isoformat()}")
 
+    # Write HTML to a temp file, render PDF, then clean up.
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".html", delete=False) as f:
+        f.write(html)
+        html_tmp = f.name
+    try:
+        pdf_bytes = render_pdf(html_tmp)
+        print(f"PDF rendered: {len(pdf_bytes)} bytes")
+        # Persist to repo for reference (overwrite pool_schedule.pdf).
+        pdf_repo = os.path.join(os.path.dirname(STATE_PATH), "pool_schedule.pdf")
+        with open(pdf_repo, "wb") as f:
+            f.write(pdf_bytes)
+    finally:
+        try:
+            os.unlink(html_tmp)
+        except OSError:
+            pass
+
     key = require_key()
     subject = f"Piedmont Pool Schedule — {label}"
-    eid = send_email(key, subject, html, text)
+    eid = send_email(key, subject, html, text, pdf_bytes=pdf_bytes)
     verify_delivery(key, eid)
 
 
