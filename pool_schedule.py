@@ -31,10 +31,11 @@ STATE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "state.jso
 TZ = zoneinfo.ZoneInfo("America/Los_Angeles")
 
 MAIL_TO = os.environ.get("MAIL_TO", "petervanwesep@gmail.com")
-# Resend's shared onboarding domain works with zero DNS setup and can send to
-# the account owner's address. Switch to "Piedmont Pool Schedule <pool@pjvw.io>"
-# once pjvw.io is verified in Resend.
-MAIL_FROM = os.environ.get("MAIL_FROM", "Piedmont Pool Schedule <onboarding@resend.dev>")
+# pool@pjvw.io once pjvw.io DNS records are verified in Resend; falls back to
+# the shared onboarding sender which can reach the account owner's address.
+MAIL_FROM = os.environ.get("MAIL_FROM", "Piedmont Pool Schedule <pool@pjvw.io>")
+MAIL_FROM_FALLBACK = "Piedmont Pool Schedule <onboarding@resend.dev>"
+PDF_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pool_schedule.pdf")
 
 SEND_DAYS = {1, 2, 3, 5, 8, 13, 21}
 WARN_AFTER_DAYS = 30
@@ -174,15 +175,16 @@ def esc(s):
 
 def render_html(label, sections):
     css = """
-body{font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;max-width:760px;margin:0 auto;padding:12px}
-h1{font-size:20px;margin:0 0 2px}
-h2{font-size:15px;margin:18px 0 6px;color:#0b5394;border-bottom:2px solid #0b5394;padding-bottom:3px}
-.period{color:#555;font-size:13px;margin-bottom:4px}
-table{border-collapse:collapse;width:100%;font-size:12px;margin-bottom:6px}
-th,td{border:1px solid #ccc;padding:5px 7px;text-align:left;vertical-align:top}
+body{font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;max-width:780px;margin:0 auto;padding:20px 24px}
+h1{font-size:22px;margin:0 0 3px}
+h2{font-size:14px;margin:22px 0 8px;color:#0b5394;border-bottom:2px solid #0b5394;padding-bottom:4px;letter-spacing:.3px;text-transform:uppercase}
+.period{color:#555;font-size:13px;margin-bottom:6px}
+table{border-collapse:collapse;width:100%;font-size:12px;margin-bottom:8px}
+th,td{border:1px solid #ccc;padding:8px 12px;text-align:left;vertical-align:top;line-height:1.45}
 th{background:#0b5394;color:#fff;font-weight:600}
-td:first-child{font-weight:600;background:#f3f6fb;white-space:nowrap}
-.foot{font-size:11px;color:#888;margin-top:16px}
+td:first-child{font-weight:600;background:#f3f6fb;white-space:nowrap;min-width:140px}
+.foot{font-size:11px;color:#888;margin-top:20px;padding-top:8px;border-top:1px solid #e0e0e0}
+@media print{body{padding:12px 16px}h2{margin-top:16px}}
 """.strip()
     parts = ['<!DOCTYPE html><html><head><meta charset="utf-8"><style>',
              css, "</style></head><body>",
@@ -254,9 +256,18 @@ def _resend_request(method, path, key, body=None):
 
 
 def send_email(key, subject, html, text):
-    status, resp = _resend_request("POST", "/emails", key, {
-        "from": MAIL_FROM, "to": [MAIL_TO],
-        "subject": subject, "html": html, "text": text})
+    import base64
+    payload = {"from": MAIL_FROM, "to": [MAIL_TO],
+               "subject": subject, "html": html, "text": text}
+    if os.path.exists(PDF_PATH):
+        b = base64.b64encode(open(PDF_PATH, "rb").read()).decode()
+        payload["attachments"] = [{"filename": "piedmont-pool-schedule.pdf", "content": b}]
+
+    status, resp = _resend_request("POST", "/emails", key, payload)
+    if status not in (200, 201) and MAIL_FROM != MAIL_FROM_FALLBACK:
+        print(f"send from {MAIL_FROM} failed ({status}); retrying with fallback sender")
+        payload["from"] = MAIL_FROM_FALLBACK
+        status, resp = _resend_request("POST", "/emails", key, payload)
     if status not in (200, 201):
         raise RuntimeError(f"send failed: HTTP {status} {resp.get('error', resp)}")
     email_id = resp.get("id")
