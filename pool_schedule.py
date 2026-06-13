@@ -218,16 +218,39 @@ def render_text(label, sections):
 # Send (Resend) + delivery verification
 # --------------------------------------------------------------------------- #
 def _resend_request(method, path, key, body=None):
-    data = json.dumps(body).encode() if body is not None else None
-    req = urllib.request.Request(
-        "https://api.resend.com" + path, data=data, method=method,
-        headers={"Authorization": "Bearer " + key,
-                 "Content-Type": "application/json"})
+    import subprocess, tempfile, os
+    url = "https://api.resend.com" + path
+    cmd = ["curl", "-s", "-w", "\n__STATUS__:%{http_code}",
+           "-X", method, url,
+           "-H", "Authorization: Bearer " + key,
+           "-H", "Content-Type: application/json"]
+    if body is not None:
+        data = json.dumps(body)
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            f.write(data)
+            tmp = f.name
+        cmd += ["-d", f"@{tmp}"]
+    else:
+        tmp = None
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return r.status, json.loads(r.read().decode() or "{}")
-    except urllib.error.HTTPError as e:
-        return e.code, {"error": e.read().decode()[:500]}
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+        if tmp:
+            os.unlink(tmp)
+        out = result.stdout
+        if "\n__STATUS__:" in out:
+            body_part, status_part = out.rsplit("\n__STATUS__:", 1)
+            status = int(status_part.strip())
+        else:
+            body_part, status = out, 0
+        resp = json.loads(body_part.strip() or "{}")
+        return status, resp
+    except Exception as e:
+        if tmp:
+            try:
+                os.unlink(tmp)
+            except OSError:
+                pass
+        return 0, {"error": str(e)}
 
 
 def send_email(key, subject, html, text):
