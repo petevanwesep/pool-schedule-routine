@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title id="doc-title">Rec Swim</title>
+<style>
+/* === PRINT LAYOUT — DO NOT TOUCH === */
+@page { size: letter portrait; margin: 0.45in; }
+@media print { body { transform: none !important; width: 7.6in !important; } }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt;
+  color: #111;
+  background: #fff;
+  width: 7.6in;
+}
+#header { border-bottom: 2.5px solid #0b5394; padding-bottom: 5px; margin-bottom: 10px; }
+#header h1 { font-size: 17pt; color: #0b5394; margin: 0 0 3px; line-height: 1.2; }
+#header .meta { font-size: 10pt; color: #555; }
+.pool { margin-bottom: 10px; }
+.pool h2 { font-size: 11pt; font-weight: 700; color: #fff; background: #0b5394; padding: 3px 7px; margin: 0 0 3px; }
+.pool .sub-label { font-size: 9pt; font-weight: 700; color: #0b5394; margin: 5px 0 2px; }
+table { border-collapse: collapse; width: 100%; font-size: 9.5pt; }
+th, td { border: 1px solid #bbb; padding: 4px 6px; text-align: left; vertical-align: top; }
+th { background: #d6e4f7; color: #0b5394; font-weight: 700; }
+th small { font-weight: normal; color: #666; display: block; font-size: 8pt; }
+td:first-child { font-weight: 600; background: #f5f8fe; white-space: nowrap; }
+tr.lesson td { background: #fff3cd; color: #7a5c00; font-style: italic; }
+tr.lesson td:first-child { background: #fde8a0; }
+#footnotes { font-size: 9pt; color: #666; border-top: 1px solid #ddd; padding-top: 5px; margin-top: 8px; }
+#genstamp { font-size: 8pt; color: #bbb; text-align: right; margin-top: 3px; }
+</style>
+</head>
+<body>
+<div id="header">
+  <h1>Piedmont Community Pool — <span id="doc-title">Rec Swim</span></h1>
+  <div class="meta"><span id="doc-period">Summer 2026: June 8 - July 19</span> &nbsp;·&nbsp; For: <span id="doc-audience">Niko</span></div>
+</div>
+
+<!-- BEGIN SCHEDULE -->
+<div class="pool">
+<h2>Settlemier Competition Pool</h2>
+<table>
+<tr><th>Activity</th><th>Mon–Thu<small>6am-1pm; 2pm-7pm</small></th><th>Fri<small>6am-1pm; 2pm-8pm</small></th><th>Sat<small>7am-8pm</small></th><th>Sun<small>7am-6pm</small></th></tr>
+<tr><td>Open Swim</td><td>6am-1pm (4 lanes)<br>5pm-7pm (2 lanes)</td><td>6am-1pm (4 lanes)</td><td>7am-1pm (4 lanes)</td><td>7am-1pm (4 lanes)</td></tr>
+<tr><td>Rec Swim (diving boards open + tube time)</td><td>2pm-5pm (8 lanes)</td><td>2pm-8pm (8 lanes)</td><td>1pm-8pm (8 lanes)</td><td>1pm-6pm (8 lanes)</td></tr>
+</table>
+</div>
+<div class="pool">
+<h2>Activity Pool (Warm Water)</h2>
+<p class="sub-label">Lap Side</p>
+<table>
+<tr><th>Activity</th><th>Mon–Thu<small>6am-1pm; 2pm-7pm</small></th><th>Fri<small>6am-1pm; 2pm-8pm</small></th><th>Sat<small>7am-8pm</small></th><th>Sun<small>7am-6pm</small></th></tr>
+<tr><td>Open Swim</td><td>2pm-4pm</td><td>2pm-8pm</td><td>12:30pm-7pm</td><td>12:30pm-6pm</td></tr>
+<tr class="lesson"><td>⚠ Lessons, Classes &amp; Camps</td><td>Camps: 9am-1pm<br>Swim Lessons: 4pm-7pm</td><td>Camps: 9am-1pm</td><td>Aqua Conditioning: 8am-9am<br>Swim Lessons until 12:30pm</td><td>Swim Lessons until 12:30pm</td></tr>
+</table>
+<p class="sub-label">Zero-Depth Area</p>
+<table>
+<tr><th>Activity</th><th>Mon–Thu<small>6am-1pm; 2pm-7pm</small></th><th>Fri<small>6am-1pm; 2pm-8pm</small></th><th>Sat<small>7am-8pm</small></th><th>Sun<small>7am-6pm</small></th></tr>
+<tr><td>Open Swim</td><td>6am-1pm<br>2pm-4pm</td><td>10am-1pm<br>2pm-8pm</td><td>12:30pm-7pm</td><td>12:30pm-6pm</td></tr>
+<tr class="lesson"><td>⚠ Lessons, Classes, and Camps</td><td>Swim lessons: 4pm-7pm</td><td>Happy Splashers: 8:30am-10am</td><td>Swim Lessons until 12:30pm</td><td>Swim Lessons until 12:30pm</td></tr>
+</table>
+</div>
+<!-- END SCHEDULE -->
+
+<div id="footnotes">All times Pacific. Subject to change — verify at piedmont.ca.gov/pool. Yellow rows: pool unavailable for open swim during lesson/class windows.</div>
+<div id="genstamp">Generated 2026-06-13 from piedmont.ca.gov/pool</div>
+<script>
+/* === AUTO-FIT — DO NOT TOUCH === */
+(function(){
+  function fit(){
+    var b = document.body;
+    var sw = window.innerWidth  || b.scrollWidth;
+    var sh = window.innerHeight || b.scrollHeight;
+    var bw = b.scrollWidth;
+    var bh = b.scrollHeight;
+    if (!bw || !bh) return;
+    var s = Math.min(sw / bw, sh / bh, 1);
+    b.style.transform = 'scale(' + s + ')';
+    b.style.transformOrigin = '0 0';
+  }
+  window.addEventListener('resize', fit);
+  document.addEventListener('DOMContentLoaded', fit);
+  fit();
+})();
+</script>
+</body>
+</html>
