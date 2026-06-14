@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Piedmont Pool Schedule</title>
+<style>
+/* ── TEMPLATE STYLE — DO NOT MODIFY ────────────────────────────────────────
+   All appearance and print sizing lives here.  Populate only:
+     #doc-title, #doc-period, #doc-audience
+     the region between BEGIN SCHEDULE / END SCHEDULE
+     #footnotes, #genstamp
+   ───────────────────────────────────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#f0f2f5}
+#page{
+  width:8.5in;
+  padding:.45in .55in .35in;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:9pt;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  transform-origin:top left;
+}
+.hdr{border-bottom:3px solid #0b5394;padding-bottom:7px;margin-bottom:11px}
+.hdr h1{font-size:18pt;color:#0b5394;line-height:1.15}
+.hdr .meta{font-size:9pt;color:#555;margin-top:4px;display:flex;gap:10px;align-items:baseline}
+.hdr .meta .sep{color:#bbb}
+.pool{margin-bottom:11px}
+.pool h2{font-size:11pt;font-weight:700;color:#0b5394;
+         border-bottom:1.5px solid #0b5394;padding-bottom:2px;margin-bottom:5px}
+.pool-sub{font-size:8.5pt;font-weight:700;color:#444;
+          margin:7px 0 3px;text-transform:uppercase;letter-spacing:.05em}
+table{border-collapse:collapse;width:100%;font-size:8pt;margin-bottom:1px}
+th,td{border:1px solid #c0c8d8;padding:3px 6px;text-align:left;vertical-align:top;line-height:1.35}
+th{background:#0b5394;color:#fff;font-weight:600;white-space:nowrap}
+td:first-child{font-weight:600;background:#eef2f9;white-space:nowrap;width:1%}
+tr.lesson-row td{background:#fdf3d0;color:#5c4900;font-style:italic}
+tr.lesson-row td:first-child{background:#f8e8a0;color:#5c4900}
+.ftr{margin-top:auto;padding-top:5px;border-top:1px solid #ddd;
+     display:flex;justify-content:space-between;align-items:flex-end;
+     font-size:7pt;color:#aaa;line-height:1.3}
+@media print{
+  html,body{background:#fff;margin:0}
+  #page{transform:none!important;width:8.5in;height:11in;padding:.45in .55in .35in}
+}
+</style>
+</head>
+<body>
+<div id="page">
+  <div class="hdr">
+    <h1 id="doc-title">Piedmont Community Pool</h1>
+    <div class="meta">
+      <span id="doc-period">Period</span>
+      <span class="sep">|</span>
+      For: <strong id="doc-audience">Audience</strong>
+    </div>
+  </div>
+
+  <div id="schedule-body">
+    <!-- BEGIN SCHEDULE -->
+    <div class="pool">
+      <h2>Sample Pool</h2>
+      <table>
+        <tr><th>Activity</th><th>Mon–Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr>
+        <tr><td>Sample activity</td><td>6am–1pm</td><td>6am–1pm</td><td>7am–1pm</td><td>7am–1pm</td></tr>
+      </table>
+    </div>
+    <!-- END SCHEDULE -->
+  </div>
+
+  <div class="ftr">
+    <span id="footnotes"></span>
+    <span id="genstamp">Generated sample · piedmont.ca.gov/pool</span>
+  </div>
+</div>
+<script>
+/* ── AUTO-FIT SCRIPT — DO NOT MODIFY ──────────────────────────────────────── */
+(function () {
+  var p = document.getElementById('page');
+  function fit() {
+    p.style.transform = 'none';
+    p.style.width = '';
+    var sw = p.offsetWidth, sh = p.offsetHeight;
+    var s = Math.min((window.innerWidth - 4) / sw, (window.innerHeight - 4) / sh);
+    if (s < 1) {
+      p.style.transform = 'scale(' + s + ')';
+      p.style.transformOrigin = 'top left';
+      document.body.style.width  = Math.round(sw * s) + 'px';
+      document.body.style.height = Math.round(sh * s) + 'px';
+    }
+  }
+  window.addEventListener('load', fit);
+  window.addEventListener('resize', fit);
+})();
+/* ─────────────────────────────────────────────────────────────────────────── */
+</script>
+</body>
+</html>
