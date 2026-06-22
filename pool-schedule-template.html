@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title id="doc-title">Piedmont Pool Schedule</title>
+  <style>
+    /* === APPEARANCE — DO NOT EDIT === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    @page { size: letter portrait; margin: 0.45in; }
+    html { font-size: 10pt; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1a1a1a;
+      line-height: 1.35;
+      width: 7.6in;
+    }
+    header {
+      border-bottom: 3px solid #174ea6;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    .org-line {
+      font-size: 0.75em;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    h1 {
+      font-size: 1.6em;
+      color: #174ea6;
+      line-height: 1.15;
+    }
+    .meta-row {
+      display: flex;
+      gap: 18px;
+      margin-top: 3px;
+      font-size: 0.8em;
+      color: #444;
+    }
+    .meta-row strong { color: #1a1a1a; }
+    .pool { margin-bottom: 10px; }
+    .pool-name {
+      font-size: 0.9em;
+      font-weight: 700;
+      color: #174ea6;
+      border-left: 3px solid #174ea6;
+      padding-left: 6px;
+      margin-bottom: 4px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 0.82em;
+    }
+    thead tr th {
+      background: #174ea6;
+      color: #fff;
+      padding: 4px 7px;
+      text-align: left;
+      font-weight: 600;
+    }
+    tbody tr td {
+      border: 1px solid #c8d4ec;
+      padding: 3px 7px;
+      vertical-align: top;
+    }
+    tbody tr:nth-child(even) td { background: #f0f4ff; }
+    td.day { font-weight: 700; background: #e4ebf8 !important; white-space: nowrap; }
+    .no-swim td { color: #999; font-style: italic; background: #fafafa !important; }
+    .tube td { background: #fff8e1 !important; }
+    footer {
+      margin-top: 8px;
+      padding-top: 4px;
+      border-top: 1px solid #ddd;
+      font-size: 0.72em;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="org-line">Piedmont Community Pool</div>
+    <h1 id="doc-title">Schedule Title Here</h1>
+    <div class="meta-row">
+      <span>Season: <strong id="doc-period">Summer 2026: June 8 – July 19</strong></span>
+      <span>For: <strong id="doc-audience">Audience</strong></span>
+    </div>
+  </header>
+
+  <!-- BEGIN SCHEDULE -->
+  <div class="pool">
+    <div class="pool-name">Settlemier Competition Pool (Sample)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Activity</th>
+          <th>Time</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="day">Mon – Fri</td>
+          <td>Lap Swim</td>
+          <td>6:00 – 8:00 am</td>
+          <td>8 lanes</td>
+        </tr>
+        <tr>
+          <td class="day">Saturday</td>
+          <td>Lap Swim</td>
+          <td>8:00 – 10:00 am</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- END SCHEDULE -->
+
+  <footer>
+    <span id="footnotes">Source: piedmont.ca.gov/pool</span>
+    <span id="genstamp"></span>
+  </footer>
+
+  <script>
+    /* === AUTO-FIT — DO NOT EDIT === */
+    (function () {
+      var PAGE_W_PX = 7.6 * 96;   // letter width minus 0.45in margins each side
+      var PAGE_H_PX = 10.1 * 96;  // letter height minus 0.45in margins top+bottom
+      function fit() {
+        var b = document.body;
+        b.style.transform = '';
+        b.style.transformOrigin = '';
+        var cw = b.scrollWidth, ch = b.scrollHeight;
+        if (cw > PAGE_W_PX || ch > PAGE_H_PX) {
+          var s = Math.min(PAGE_W_PX / cw, PAGE_H_PX / ch);
+          b.style.transformOrigin = '0 0';
+          b.style.transform = 'scale(' + s.toFixed(4) + ')';
+        }
+      }
+      if (document.readyState === 'loading')
+        document.addEventListener('DOMContentLoaded', fit);
+      else fit();
+      window.addEventListener('resize', fit);
+    })();
+  </script>
+</body>
+</html>
