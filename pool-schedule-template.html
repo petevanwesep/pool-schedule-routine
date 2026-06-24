@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Piedmont Community Pool</title>
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Screen shell: grey backdrop, centered white page ── */
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #dde2e8;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 28px 20px;
+    }
+
+    /* ── Page canvas: letter minus 0.5 in margins each side ── */
+    #page {
+      background: #fff;
+      width: 7.5in;
+      padding: 0.42in 0.48in 0.36in;
+      transform-origin: top center;
+      box-shadow: 0 2px 14px rgba(0,0,0,.18);
+    }
+
+    /* ── Page header ── */
+    #page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 3px solid #1a4f8a;
+      padding-bottom: 5px;
+      margin-bottom: 13px;
+    }
+
+    #doc-title {
+      font-size: 21px;
+      font-weight: 700;
+      color: #1a4f8a;
+      line-height: 1.1;
+    }
+
+    #doc-meta {
+      text-align: right;
+      font-size: 11px;
+      color: #555;
+      line-height: 1.65;
+    }
+
+    #doc-period   { font-weight: 600; }
+    #doc-audience { font-style: italic; }
+
+    /* ── Pool blocks ── */
+    .pool { margin-bottom: 15px; }
+
+    .pool h2 {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fff;
+      background: #1a4f8a;
+      padding: 4px 9px;
+      margin-bottom: 0;
+    }
+
+    /* ── Schedule table ── */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 11.5px;
+    }
+
+    thead th {
+      background: #d6e4f4;
+      color: #1a3a6b;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 5px 8px;
+      border: 1px solid #aec6de;
+      text-align: left;
+    }
+
+    tbody tr:nth-child(odd)  { background: #fff; }
+    tbody tr:nth-child(even) { background: #f3f8fd; }
+
+    tbody td {
+      padding: 5px 8px;
+      vertical-align: top;
+      border: 1px solid #ccd6e4;
+      line-height: 1.4;
+    }
+
+    tbody td:first-child {
+      font-weight: 600;
+      color: #1a3a6b;
+      white-space: nowrap;
+      width: 22%;
+    }
+
+    tbody td:nth-child(2) { width: 32%; }
+
+    /* Swim-lesson unavailability callout */
+    .no-open {
+      color: #92400e;
+      font-size: 10.5px;
+    }
+    .no-open::before { content: "\26A0\0020"; }   /* ⚠ */
+
+    /* ── Page footer ── */
+    #page-footer {
+      margin-top: 12px;
+      padding-top: 5px;
+      border-top: 1px solid #ccd6e4;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 9.5px;
+      color: #888;
+    }
+
+    #footnotes { max-width: 76%; line-height: 1.55; }
+    #genstamp  { white-space: nowrap; text-align: right; }
+
+    /* ── Print ── */
+    @page { size: letter portrait; margin: 0.5in; }
+
+    @media print {
+      body { background: none; padding: 0; display: block; }
+      #page {
+        width: 100%;
+        min-height: 0;
+        padding: 0;
+        box-shadow: none;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="page">
+
+    <div id="page-header">
+      <div id="doc-title">Lap Swim</div>
+      <div id="doc-meta">
+        <div id="doc-period">Summer 2026: June 8 – July 19</div>
+        <div id="doc-audience">Pete &amp; Stacy</div>
+      </div>
+    </div>
+
+    <!-- BEGIN SCHEDULE -->
+    <div class="pool">
+      <h2>Settlemier Competition Pool</h2>
+      <table>
+        <thead>
+          <tr><th>Day</th><th>Time</th><th>Activity</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mon – Fri</td><td>5:30 – 8:00 am</td><td>Lap Swim (8 lanes)</td></tr>
+          <tr><td>Mon – Fri</td><td>12:00 – 1:30 pm</td><td>Lap Swim</td></tr>
+          <tr><td>Sat – Sun</td><td>8:00 am – 12:00 pm</td><td>Lap Swim (8 lanes)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- END SCHEDULE -->
+
+    <div id="page-footer">
+      <div id="footnotes">* Schedule subject to change without notice. Check
+        piedmont.ca.gov for holiday closures and special events.</div>
+      <div id="genstamp">Generated 2026-01-01 from piedmont.ca.gov/pool</div>
+    </div>
+
+  </div>
+
+  <script>
+    /* Auto-fit: shrink #page proportionally so the full schedule is visible
+       in the browser viewport before printing. The @media print block resets
+       the transform so print output is always full-size.                       */
+    (function () {
+      function fit() {
+        var page = document.getElementById('page');
+        if (!page) return;
+        page.style.transform      = '';
+        page.style.transformOrigin = '';
+        document.body.style.height = '';
+
+        var PAD   = 56;   /* body padding: 28px top + 28px bottom */
+        var vw    = (window.innerWidth  || document.documentElement.clientWidth)  - PAD;
+        var vh    = (window.innerHeight || document.documentElement.clientHeight) - PAD;
+        var pw    = page.offsetWidth;
+        var ph    = page.scrollHeight;
+        var scale = Math.min(1, vw / pw, vh / ph);
+
+        if (scale < 1) {
+          page.style.transformOrigin = 'top center';
+          page.style.transform       = 'scale(' + scale + ')';
+          document.body.style.height = Math.ceil(ph * scale + PAD) + 'px';
+        }
+      }
+      window.addEventListener('load',   fit);
+      window.addEventListener('resize', fit);
+    })();
+  </script>
+</body>
+</html>
