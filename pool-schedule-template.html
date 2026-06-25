@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title id="doc-title">Piedmont Community Pool — Sample Schedule</title>
+<style>
+/* DO NOT MODIFY — appearance and one-page fit are controlled here */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+@page { size: letter portrait; margin: 0.45in; }
+html { height: 100%; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #1a1a1a;
+  padding: 0.35in 0.4in 0.3in;
+  height: 100%;
+}
+header {
+  margin-bottom: 9px;
+  border-bottom: 2.5px solid #0b5394;
+  padding-bottom: 6px;
+}
+header h1 { font-size: 17px; color: #0b5394; font-weight: 700; }
+header .meta { font-size: 10.5px; color: #555; margin-top: 3px; }
+.pool { margin-bottom: 11px; }
+.pool h2 {
+  font-size: 12.5px;
+  color: #0b5394;
+  border-bottom: 1px solid #0b5394;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+table { border-collapse: collapse; width: 100%; font-size: 10px; }
+th {
+  background: #0b5394;
+  color: #fff;
+  font-weight: 600;
+  padding: 4px 6px;
+  text-align: left;
+  border: 1px solid #084580;
+}
+td {
+  border: 1px solid #ccc;
+  padding: 3px 6px;
+  vertical-align: top;
+}
+td:first-child {
+  font-weight: 600;
+  background: #f3f6fb;
+  white-space: nowrap;
+  width: 82px;
+}
+tr:nth-child(even) td { background: #f9fbff; }
+tr:nth-child(even) td:first-child { background: #ecf0f8; }
+.lesson td { background: #fff8e1 !important; font-style: italic; color: #555; }
+.lesson td:first-child { background: #fff0b3 !important; }
+footer {
+  margin-top: 9px;
+  font-size: 9px;
+  color: #888;
+  border-top: 1px solid #ddd;
+  padding-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="doc-title">Piedmont Community Pool — Sample Schedule</h1>
+  <div class="meta">
+    <strong id="doc-period">Summer 2026: June 8 – July 19</strong>
+    &nbsp;&nbsp;|&nbsp;&nbsp;For: <span id="doc-audience">Sample Audience</span>
+  </div>
+</header>
+
+<!-- BEGIN SCHEDULE -->
+<div class="pool">
+  <h2>Sample Pool</h2>
+  <table>
+    <tr><th>Day</th><th>Session</th><th>Time</th><th>Notes</th></tr>
+    <tr><td>Mon–Fri</td><td>Lap Swim</td><td>6:00–8:00 AM</td><td></td></tr>
+    <tr><td>Sat–Sun</td><td>Lap Swim</td><td>8:00–10:00 AM</td><td></td></tr>
+  </table>
+</div>
+<!-- END SCHEDULE -->
+
+<footer>
+  <span id="footnotes">* Schedule subject to change. Check piedmont.ca.gov for updates.</span>
+  <span id="genstamp">Generated 2026-06-25 from piedmont.ca.gov/pool</span>
+</footer>
+
+<script>
+/* DO NOT MODIFY — auto-fits content to one printed page */
+(function () {
+  function fit() {
+    var el = document.body;
+    el.style.transform = '';
+    el.style.width = '';
+    var pageH = 96 * 10.1; // ~10.1in usable at 96 dpi (letter minus margins)
+    var contentH = el.scrollHeight;
+    if (contentH > pageH) {
+      var scale = pageH / contentH;
+      el.style.transformOrigin = 'top left';
+      el.style.transform = 'scale(' + scale.toFixed(5) + ')';
+      el.style.width = (100 / scale).toFixed(3) + '%';
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fit);
+  } else {
+    fit();
+  }
+  window.addEventListener('resize', fit);
+})();
+</script>
+
+</body>
+</html>
