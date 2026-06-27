@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Piedmont Community Pool — Schedule</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@page { size: letter portrait; margin: 0; }
+html, body {
+  width: 8.5in; height: 11in;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt; color: #1a1a1a; background: #fff;
+}
+#page {
+  width: 8.5in; height: 11in;
+  padding: 0.45in 0.5in 0.35in;
+  overflow: hidden; position: relative;
+}
+#header {
+  border-bottom: 3px solid #0b5394;
+  padding-bottom: 6px; margin-bottom: 10px;
+}
+#header h1 { font-size: 20pt; color: #0b5394; }
+#header .meta { font-size: 10pt; color: #555; margin-top: 3px; }
+.pool { margin-bottom: 10px; }
+.pool h2 {
+  font-size: 11pt; font-weight: 700; color: #0b5394;
+  border-bottom: 1.5px solid #c8d8ed;
+  padding-bottom: 3px; margin-bottom: 5px;
+  text-transform: uppercase; letter-spacing: 0.3px;
+}
+.pool h3.sub {
+  font-size: 9.5pt; font-weight: 600; color: #444;
+  margin: 6px 0 3px; font-style: italic;
+}
+.pool table {
+  width: 100%; border-collapse: collapse; font-size: 9pt;
+  margin-bottom: 4px;
+}
+.pool table th {
+  background: #0b5394; color: #fff; font-weight: 600;
+  padding: 4px 7px; text-align: left; border: 1px solid #0b5394;
+}
+.pool table td {
+  padding: 4px 7px; border: 1px solid #ccc; vertical-align: top;
+}
+.pool table tr:nth-child(odd) td { background: #f3f6fb; }
+.pool table tr:nth-child(even) td { background: #fff; }
+.pool table td:first-child { font-weight: 600; white-space: nowrap; }
+.pool table tr.lesson-row td {
+  color: #888; font-style: italic; background: #fafafa;
+}
+.lesson-note {
+  font-size: 8pt; color: #888; margin-top: 4px; font-style: italic;
+}
+#footnotes {
+  font-size: 8pt; color: #aaa;
+  border-top: 1px solid #ddd; padding-top: 4px; margin-top: 8px;
+}
+#genstamp { font-size: 8pt; color: #bbb; }
+</style>
+</head>
+<body>
+<div id="page">
+  <div id="header">
+    <h1>Piedmont Community Pool — <span id="doc-title">Schedule</span></h1>
+    <div class="meta">
+      <span id="doc-period">Season Year: Month D – Month D</span>
+      &nbsp;·&nbsp;
+      For: <strong id="doc-audience">Everyone</strong>
+    </div>
+  </div>
+
+  <!-- BEGIN SCHEDULE -->
+  <div class="pool">
+    <h2>Sample Pool</h2>
+    <table>
+      <tr><th>Day</th><th>Time</th><th>Notes</th></tr>
+      <tr><td>Mon–Fri</td><td>6:00–8:00 AM</td><td>Lane swim</td></tr>
+    </table>
+  </div>
+  <!-- END SCHEDULE -->
+
+  <div id="footnotes">
+    <span id="genstamp">Generated [date] from piedmont.ca.gov/pool</span>
+  </div>
+</div>
+<script>
+(function () {
+  var page = document.getElementById('page');
+  function fit() {
+    page.style.transform = '';
+    var sw = document.documentElement.clientWidth || window.innerWidth;
+    var sh = document.documentElement.clientHeight || window.innerHeight;
+    var ratio = Math.min(sw / page.offsetWidth, sh / page.offsetHeight);
+    if (ratio < 1) {
+      page.style.transformOrigin = '0 0';
+      page.style.transform = 'scale(' + ratio + ')';
+    }
+  }
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
+</body>
+</html>
