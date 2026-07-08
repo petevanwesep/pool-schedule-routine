@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Piedmont Community Pool Schedule</title>
+<style>
+  :root{
+    --ink:#111;
+    --accent:#14456b;
+    --accent-bg:#eef3f7;
+    --rule:#ccc;
+    --lesson-bg:#fff3cd;
+  }
+  @page{ size: letter; margin: 0.5in; }
+  html,body{ margin:0; padding:0; background:#fff; }
+  body{
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  #page{
+    width: 7.5in;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  header{
+    text-align: center;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 0.35em;
+    margin-bottom: 0.6em;
+  }
+  #doc-title{
+    margin: 0;
+    font-size: 1.9em;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  #doc-meta{
+    margin-top: 0.25em;
+    font-size: 1em;
+    color: #444;
+  }
+  #doc-period{ font-weight: bold; }
+  #doc-audience::before{ content: "For: "; font-weight: normal; color:#666; }
+  #doc-audience{ font-weight: bold; }
+
+  .pool{
+    margin-bottom: 0.9em;
+    page-break-inside: avoid;
+  }
+  .pool-name{
+    font-size: 1.2em;
+    color: #fff;
+    background: var(--accent);
+    padding: 0.2em 0.5em;
+    margin: 0 0 0.35em 0;
+    border-radius: 3px;
+  }
+  .pool-sub{
+    font-size: 0.95em;
+    font-style: italic;
+    color: #555;
+    margin: 0.5em 0 0.2em 0;
+  }
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    margin-bottom: 0.4em;
+  }
+  th,td{
+    border: 1px solid var(--rule);
+    padding: 0.3em 0.55em;
+    text-align: left;
+    vertical-align: top;
+  }
+  th{
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-weight: bold;
+  }
+  tr.lesson td{
+    background: var(--lesson-bg);
+  }
+  tr.lesson td:last-child{
+    font-style: italic;
+  }
+  .legend{
+    font-size: 0.8em;
+    color: #555;
+    margin: 0.15em 0 0.5em 0;
+  }
+  .legend .swatch{
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    vertical-align: middle;
+    margin-right: 0.3em;
+    border: 1px solid var(--rule);
+  }
+  .legend .swatch.lesson{ background: var(--lesson-bg); }
+
+  #footnotes{
+    font-size: 0.8em;
+    color: #555;
+    margin-top: 0.6em;
+    border-top: 1px solid var(--rule);
+    padding-top: 0.4em;
+  }
+  #footnotes ul{
+    margin: 0.2em 0 0 1.1em;
+    padding: 0;
+  }
+  #genstamp{
+    font-size: 0.68em;
+    color: #999;
+    text-align: right;
+    margin-top: 0.3em;
+  }
+</style>
+</head>
+<body>
+<div id="page">
+
+  <header>
+    <h1 id="doc-title">Sample Schedule</h1>
+    <div id="doc-meta">
+      <span id="doc-period">Sample Season 2026: Jan 1 - Dec 31</span>
+      &middot;
+      <span id="doc-audience">Sample Audience</span>
+    </div>
+  </header>
+
+  <!-- BEGIN SCHEDULE -->
+  <div class="pool">
+    <h2 class="pool-name">Sample Pool</h2>
+    <p class="pool-sub">Lap Swim</p>
+    <table>
+      <thead>
+        <tr><th>Day</th><th>Time</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mon &ndash; Fri</td><td>6:00 &ndash; 8:00 AM</td><td>6 lanes</td></tr>
+        <tr><td>Mon &ndash; Fri</td><td>11:30 AM &ndash; 1:00 PM</td><td>4 lanes</td></tr>
+        <tr><td>Sat &ndash; Sun</td><td>8:00 &ndash; 10:00 AM</td><td>6 lanes</td></tr>
+        <tr class="lesson"><td>Mon &ndash; Thu</td><td>4:00 &ndash; 5:30 PM</td><td>Not available &mdash; swim lessons</td></tr>
+      </tbody>
+    </table>
+    <div class="legend"><span class="swatch lesson"></span>Highlighted rows = swim lessons in session; pool not available for open use.</div>
+  </div>
+  <!-- END SCHEDULE -->
+
+  <div id="footnotes">
+    <strong>Notes</strong>
+    <ul>
+      <li>Sample footnote: hours are subject to change without notice; call the pool office to confirm.</li>
+      <li>Sample footnote: lap swim requires sharing lanes during posted circle-swim times.</li>
+    </ul>
+  </div>
+
+  <div id="genstamp">Generated Jan 1, 2026 from piedmont.ca.gov/pool (sample data)</div>
+
+</div>
+
+<script>
+(function(){
+  // Shrinks #page's font-size until its rendered content fits within one
+  // printed letter page (8.5x11in, 0.5in margins => ~7.5in x 10in usable).
+  function fit(){
+    var page = document.getElementById('page');
+    if(!page) return;
+    var DPI = 96;
+    var maxHeightPx = 10 * DPI;
+    var maxSize = 16;
+    var minSize = 8;
+    var size = maxSize;
+    page.style.fontSize = size + 'px';
+    while(page.scrollHeight > maxHeightPx && size > minSize){
+      size -= 0.25;
+      page.style.fontSize = size + 'px';
+    }
+  }
+  window.addEventListener('load', fit);
+  window.addEventListener('resize', fit);
+  window.addEventListener('beforeprint', fit);
+  if(window.matchMedia){
+    window.matchMedia('print').addListener(function(mql){ if(mql.matches) fit(); });
+  }
+})();
+</script>
+</body>
+</html>
