@@ -1,0 +1,203 @@
+<title>Piedmont Community Pool Schedule</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @page { size: letter portrait; margin: 0.5in; }
+  * { box-sizing: border-box; }
+  html { font-size: 16px; }
+  body {
+    margin: 0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #16202a;
+    background: #eef2f5;
+  }
+  .sheet {
+    width: 7.5in;
+    max-width: 100%;
+    margin: 0.25in auto;
+    padding: 0.15in 0.05in;
+    background: #fff;
+    box-shadow: 0 0.02in 0.12in rgba(0,0,0,0.15);
+  }
+  @media print {
+    body { background: #fff; }
+    .sheet { margin: 0; box-shadow: none; width: 100%; }
+  }
+  header { border-bottom: 0.15rem solid #0b5394; padding-bottom: 0.4rem; margin-bottom: 0.6rem; }
+  header h1 { margin: 0; font-size: 1.9rem; color: #0b5394; letter-spacing: -0.01em; }
+  header .meta { margin-top: 0.2rem; font-size: 1rem; color: #445; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  header .meta .period { font-weight: 600; }
+  header .meta .audience { color: #0b5394; font-weight: 600; }
+  header .meta .sep { color: #aab; }
+  .pool { margin-bottom: 0.9rem; }
+  .pool h2 {
+    font-size: 1.15rem;
+    margin: 0 0 0.35rem;
+    color: #fff;
+    background: #0b5394;
+    padding: 0.25rem 0.6rem;
+    border-radius: 0.2rem;
+  }
+  .pool .pool-note { font-size: 0.85rem; color: #556; margin: 0 0 0.35rem; font-style: italic; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  th, td { border: 1px solid #cdd6dd; padding: 0.3rem 0.4rem; text-align: left; vertical-align: top; }
+  thead th { background: #e7eef5; color: #0b5394; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.02em; }
+  tbody th { background: #f3f6fb; font-weight: 600; white-space: nowrap; width: 12%; }
+  td .window { display: block; line-height: 1.35; }
+  td .window + .window { margin-top: 0.15rem; }
+  td .window.lesson { color: #a34a00; }
+  td .none { color: #aab; }
+  .legend { font-size: 0.78rem; color: #667; margin-top: 0.3rem; }
+  .legend .lesson-dot { display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%; background: #a34a00; margin-right: 0.3em; vertical-align: middle; }
+  footer#footnotes { margin-top: 0.8rem; padding-top: 0.4rem; border-top: 1px solid #cdd6dd; font-size: 0.78rem; color: #667; line-height: 1.5; }
+  #genstamp { margin-top: 0.3rem; font-size: 0.7rem; color: #99a; }
+</style>
+
+<div class="sheet" id="sheet">
+  <header>
+    <h1 id="doc-title">Rec Swim</h1>
+    <div class="meta">
+      <span class="period" id="doc-period">Summer 2026</span>
+      <span class="sep">&middot;</span>
+      <span class="audience" id="doc-audience">Niko</span>
+    </div>
+  </header>
+
+  <!-- BEGIN SCHEDULE -->
+  <section class="pool">
+    <h2>Settlemier Competition Pool &mdash; Rec / Open Swim (week of Jul 27&ndash;Aug 2)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Rec / Open</th>
+          <td>
+            <span class="window">6a&ndash;12p &middot; Open &middot; 4 lanes</span>
+            <span class="window">2p&ndash;5p &middot; Rec &middot; 8 lanes</span>
+            <span class="window">5p&ndash;7p &middot; Open &middot; 2 lanes</span>
+          </td>
+          <td>
+            <span class="window">6a&ndash;1p &middot; Open &middot; 4 lanes</span>
+            <span class="window">3p&ndash;5p &middot; Rec &middot; 8 lanes</span>
+            <span class="window">5p&ndash;7p &middot; Open &middot; 2 lanes</span>
+          </td>
+          <td>
+            <span class="window">6a&ndash;12p &middot; Open &middot; 4 lanes</span>
+            <span class="window">2p&ndash;5p &middot; Rec &middot; 8 lanes</span>
+            <span class="window">5p&ndash;7p &middot; Open &middot; 2 lanes</span>
+          </td>
+          <td>
+            <span class="window">6a&ndash;12p &middot; Open &middot; 4 lanes</span>
+            <span class="window">2p&ndash;5p &middot; Rec &middot; 8 lanes</span>
+            <span class="window">5p&ndash;7p &middot; Open &middot; 2 lanes</span>
+          </td>
+          <td>
+            <span class="window">6a&ndash;1p &middot; Open &middot; 4 lanes</span>
+            <span class="window">2p&ndash;8p &middot; Rec &middot; 8 lanes</span>
+          </td>
+          <td>
+            <span class="window">7a&ndash;1p &middot; Open &middot; 8 lanes</span>
+            <span class="window">1p&ndash;8p &middot; Rec &middot; 8 lanes</span>
+          </td>
+          <td>
+            <span class="window">7a&ndash;1p &middot; Open &middot; 4 lanes</span>
+            <span class="window">1p&ndash;6p &middot; Rec &middot; 8 lanes</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="pool">
+    <h2>Activity Pool &mdash; Open / Rec Swim (Jun 8&ndash;Sep 30 schedule)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Open / Rec</th>
+          <td>
+            <span class="window">6a&ndash;12p &middot; Open</span>
+            <span class="window">2p&ndash;4p &middot; Open</span>
+            <span class="window lesson">4p&ndash;7p &middot; Lesson &mdash; reservation only</span>
+          </td>
+          <td>
+            <span class="window">6a&ndash;1p &middot; Open</span>
+            <span class="window lesson">4p&ndash;7p &middot; Lesson &mdash; reservation only</span>
+          </td>
+          <td>
+            <span class="window">6a&ndash;1p &middot; Open</span>
+            <span class="window">2p&ndash;4p &middot; Open</span>
+            <span class="window lesson">4p&ndash;7p &middot; Lesson &mdash; reservation only</span>
+          </td>
+          <td>
+            <span class="window">6a&ndash;1p &middot; Open</span>
+            <span class="window">2p&ndash;4p &middot; Open</span>
+            <span class="window lesson">4p&ndash;7p &middot; Lesson &mdash; reservation only</span>
+          </td>
+          <td>
+            <span class="window">6a&ndash;10:30a &middot; Open</span>
+            <span class="window lesson">10:30a&ndash;12p &middot; Lesson &mdash; lap lane only</span>
+            <span class="window">12p&ndash;7p &middot; Open</span>
+            <span class="window">7p&ndash;8p &middot; Open (zero-depth)</span>
+          </td>
+          <td>
+            <span class="window">7a&ndash;8a &middot; Open</span>
+            <span class="window lesson">8a&ndash;12p &middot; Lesson &mdash; reservation only</span>
+            <span class="window">12p&ndash;8p &middot; Open</span>
+          </td>
+          <td>
+            <span class="window">7a&ndash;8a &middot; Open</span>
+            <span class="window lesson">8a&ndash;12p &middot; Lesson &mdash; reservation only</span>
+            <span class="window">12p&ndash;6p &middot; Open</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="legend"><span class="lesson-dot"></span>Orange = swim lessons in session; open swim is limited (reservation-only, or lap lane only as noted) during these windows, not fully open.</p>
+  </section>
+  <!-- END SCHEDULE -->
+
+  <footer id="footnotes">
+    Source: City of Piedmont, piedmont.ca.gov (Aquatics &ndash; Lap Swim &amp; Open Swim Schedules). Competition Pool hours change weekly during summer &mdash; the block above covers July 27&ndash;August 2, 2026 only. Activity Pool follows one schedule for the full Jun 8&ndash;Sep 30, 2026 summer season. Reserved-swim slots require sign-up at rec.us/piedmont (passholders Thu 9am, resident drop-in Fri 9am, non-resident Sat 8am). Tube time is not part of the current published Competition Pool schedule. Schedule subject to change; verify before visiting.
+  </footer>
+  <div id="genstamp">Generated 2026-07-27 from piedmont.ca.gov/pool</div>
+</div>
+
+<script>
+(function () {
+  // Shrinks the root font-size until the sheet fits one printed page
+  // (7.5in x 10in content area at 96 CSS px/in), so printing needs no
+  // "fit to page" browser option.
+  var MAX_HEIGHT_PX = 950; // ~10in content area, minus a small safety margin
+  var MIN_FONT_PX = 9;
+  var MAX_FONT_PX = 16;
+  var html = document.documentElement;
+  var sheet = document.getElementById('sheet');
+
+  function fit() {
+    var size = MAX_FONT_PX;
+    html.style.fontSize = size + 'px';
+    while (sheet.scrollHeight > MAX_HEIGHT_PX && size > MIN_FONT_PX) {
+      size -= 0.5;
+      html.style.fontSize = size + 'px';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fit);
+  } else {
+    fit();
+  }
+  window.addEventListener('load', fit);
+  window.addEventListener('beforeprint', fit);
+})();
+</script>

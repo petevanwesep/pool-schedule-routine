@@ -1,0 +1,125 @@
+<title>Piedmont Community Pool Schedule</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @page { size: letter portrait; margin: 0.5in; }
+  * { box-sizing: border-box; }
+  html { font-size: 16px; }
+  body {
+    margin: 0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #16202a;
+    background: #eef2f5;
+  }
+  .sheet {
+    width: 7.5in;
+    max-width: 100%;
+    margin: 0.25in auto;
+    padding: 0.15in 0.05in;
+    background: #fff;
+    box-shadow: 0 0.02in 0.12in rgba(0,0,0,0.15);
+  }
+  @media print {
+    body { background: #fff; }
+    .sheet { margin: 0; box-shadow: none; width: 100%; }
+  }
+  header { border-bottom: 0.15rem solid #0b5394; padding-bottom: 0.4rem; margin-bottom: 0.6rem; }
+  header h1 { margin: 0; font-size: 1.9rem; color: #0b5394; letter-spacing: -0.01em; }
+  header .meta { margin-top: 0.2rem; font-size: 1rem; color: #445; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  header .meta .period { font-weight: 600; }
+  header .meta .audience { color: #0b5394; font-weight: 600; }
+  header .meta .sep { color: #aab; }
+  .pool { margin-bottom: 0.9rem; }
+  .pool h2 {
+    font-size: 1.15rem;
+    margin: 0 0 0.35rem;
+    color: #fff;
+    background: #0b5394;
+    padding: 0.25rem 0.6rem;
+    border-radius: 0.2rem;
+  }
+  .pool .pool-note { font-size: 0.85rem; color: #556; margin: 0 0 0.35rem; font-style: italic; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  th, td { border: 1px solid #cdd6dd; padding: 0.3rem 0.4rem; text-align: left; vertical-align: top; }
+  thead th { background: #e7eef5; color: #0b5394; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.02em; }
+  tbody th { background: #f3f6fb; font-weight: 600; white-space: nowrap; width: 12%; }
+  td .window { display: block; line-height: 1.35; }
+  td .window + .window { margin-top: 0.15rem; }
+  td .window.lesson { color: #a34a00; }
+  td .none { color: #aab; }
+  .legend { font-size: 0.78rem; color: #667; margin-top: 0.3rem; }
+  .legend .lesson-dot { display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%; background: #a34a00; margin-right: 0.3em; vertical-align: middle; }
+  footer#footnotes { margin-top: 0.8rem; padding-top: 0.4rem; border-top: 1px solid #cdd6dd; font-size: 0.78rem; color: #667; line-height: 1.5; }
+  #genstamp { margin-top: 0.3rem; font-size: 0.7rem; color: #99a; }
+</style>
+
+<div class="sheet" id="sheet">
+  <header>
+    <h1 id="doc-title">Sample Schedule</h1>
+    <div class="meta">
+      <span class="period" id="doc-period">Sample Period</span>
+      <span class="sep">&middot;</span>
+      <span class="audience" id="doc-audience">Sample Audience</span>
+    </div>
+  </header>
+
+  <!-- BEGIN SCHEDULE -->
+  <section class="pool">
+    <h2>Sample Pool</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Lap Swim</th>
+          <td><span class="window">6a&ndash;12p</span></td>
+          <td><span class="window">6a&ndash;12p</span></td>
+          <td><span class="window">6a&ndash;12p</span></td>
+          <td><span class="window">6a&ndash;12p</span></td>
+          <td><span class="window">6a&ndash;12p</span></td>
+          <td><span class="none">&ndash;</span></td>
+          <td><span class="none">&ndash;</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <!-- END SCHEDULE -->
+
+  <footer id="footnotes">
+    Sample footnote text goes here.
+  </footer>
+  <div id="genstamp">Generated sample &mdash; not real data.</div>
+</div>
+
+<script>
+(function () {
+  // Shrinks the root font-size until the sheet fits one printed page
+  // (7.5in x 10in content area at 96 CSS px/in), so printing needs no
+  // "fit to page" browser option.
+  var MAX_HEIGHT_PX = 950; // ~10in content area, minus a small safety margin
+  var MIN_FONT_PX = 9;
+  var MAX_FONT_PX = 16;
+  var html = document.documentElement;
+  var sheet = document.getElementById('sheet');
+
+  function fit() {
+    var size = MAX_FONT_PX;
+    html.style.fontSize = size + 'px';
+    while (sheet.scrollHeight > MAX_HEIGHT_PX && size > MIN_FONT_PX) {
+      size -= 0.5;
+      html.style.fontSize = size + 'px';
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fit);
+  } else {
+    fit();
+  }
+  window.addEventListener('load', fit);
+  window.addEventListener('beforeprint', fit);
+})();
+</script>
