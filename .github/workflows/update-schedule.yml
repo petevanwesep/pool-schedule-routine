@@ -1,0 +1,59 @@
+name: Update competition pool schedule
+
+# Keeps competition_pool.ics current and emails a digest when the City of
+# Piedmont competition-pool schedule changes.
+#
+# Required for the email step (optional — the .ics still updates without it):
+#   Settings ▸ Secrets and variables ▸ Actions ▸ New repository secret
+#     RESEND_API_KEY = re_...        (your Resend API key)
+# Optional repository variables (Settings ▸ Variables):
+#     MAIL_TO, MAIL_FROM, ICS_FEED_URL
+
+on:
+  schedule:
+    - cron: "0 13 * * *"   # 13:00 UTC ≈ 6am Pacific, daily
+  workflow_dispatch:        # allow manual runs from the Actions tab
+
+permissions:
+  contents: write           # to commit the refreshed .ics + state.json
+
+concurrency:
+  group: update-schedule
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate feed and email on change
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          MAIL_TO: ${{ vars.MAIL_TO }}
+          MAIL_FROM: ${{ vars.MAIL_FROM }}
+          ICS_FEED_URL: ${{ vars.ICS_FEED_URL }}
+        run: |
+          if [ -n "$RESEND_API_KEY" ]; then
+            python3 pool_schedule.py
+          else
+            echo "RESEND_API_KEY not set — refreshing .ics only (no email)."
+            python3 pool_schedule.py --no-email
+          fi
+
+      - name: Commit refreshed schedule
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add competition_pool.ics state.json
+          if git diff --cached --quiet; then
+            echo "No schedule change to commit."
+          else
+            git commit -m "Update competition pool schedule feed"
+            git push
+          fi
